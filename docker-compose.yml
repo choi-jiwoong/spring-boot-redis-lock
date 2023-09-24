@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mysql-server:
+    image: mysql:latest
+    container_name: mysql_server
+    restart: always
+    environment:
+      MYSQL_DATABASE: boro
+      MYSQL_ROOT_PASSWORD: 1234
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+
+  redis-server:
+    image: redis:latest
+    container_name: redis_server
+    restart: always
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+
+#  spring-boot:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: always
+#    environment:
+#      DATABASE_URL: mysql-server
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: 1234
+#      REDIS_URL: redis-server
+#    ports:
+#      - 8100:8080
+#    depends_on:
+#      - mysql-server
+#      - redis-server
